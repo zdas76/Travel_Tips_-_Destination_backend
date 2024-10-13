@@ -23,10 +23,10 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-//global error handler
-app.use(globalErrorHandaler);
-
 //handle not found
 app.use(notFound);
+
+//global error handler
+app.use(globalErrorHandaler);
 
 export default app;

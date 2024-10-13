@@ -16,7 +16,7 @@ const userSchema = new Schema<TUser>(
       required: [true, "Password Required"],
     },
     phone: { type: String },
-    profileImage: { type: String, default: null },
+    profileImage: { type: String },
     address: {
       type: String,
     },

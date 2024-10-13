@@ -14,7 +14,6 @@ const getAllCategoryDB = async () => {
 };
 
 const updateCategoryDB = async (id: string, payLoad: any) => {
-  console.log(payLoad);
   const result = await Category.findByIdAndUpdate(id, payLoad);
 
   return result;

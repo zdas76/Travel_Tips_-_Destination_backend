@@ -16,7 +16,6 @@ const createUser = catchAsync(async (req, res) => {
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthService.loginUser(req.body);
-  console.log(result);
 
   res.status(httpStatus.OK).json({
     success: true,

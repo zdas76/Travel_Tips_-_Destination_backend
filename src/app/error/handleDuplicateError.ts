@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import { TErrorSources, TGenericErrorResponse } from "../interface/error";
+import {
+  TErrorSources,
+  TGenericErrorResponse,
+} from "../inteface/error.interface";
 
 const handleDuplicateError = (error: any): TGenericErrorResponse => {
   const match = error.message.match(/"([^"]*)"/);

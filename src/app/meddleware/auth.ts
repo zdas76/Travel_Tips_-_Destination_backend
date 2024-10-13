@@ -8,14 +8,10 @@ import { TUserRole } from "../modul/user/user.interfact";
 
 const auth = (...reqiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const Bearertoken = req.headers.authorization;
-
-    if (!Bearertoken) {
+    const token = req.headers.authorization;
+    if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
     }
-
-    const token = Bearertoken && Bearertoken.split(" ")[1];
-
     const decoded = jwt.verify(
       token,
       config.access_secret as string
