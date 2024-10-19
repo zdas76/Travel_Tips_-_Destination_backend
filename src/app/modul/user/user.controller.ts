@@ -39,8 +39,21 @@ const updateUser = catchAsync(async (req, res) => {
   });
 });
 
+const getloginUser = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+  const result = await UserService.getLoginUserFromDB(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User found successfuly",
+    data: result,
+  });
+});
+
 export const UserControllers = {
   getAllUser,
   deleteUser,
   updateUser,
+  getloginUser,
 };

@@ -1,18 +1,20 @@
 import { z } from "zod";
 
 const replayValidationSchema = z.object({
-  coment: z.string().optional(),
-  userName: z.string().optional(),
-  userEmail: z.string().optional(),
+  comment: z.string().optional(),
+  userId: z.string(),
 });
 
 const comentValidationSchema = z.object({
-  coment: z.string().optional(),
-  userName: z.string().optional(),
-  userEmail: z.string().optional(),
+  comment: z.string().optional(),
+  userId: z.string().optional(),
   replay: z.array(replayValidationSchema).optional(),
 });
 
+const voteValidationSchema = z.object({
+  value: z.string(),
+  user: z.string(),
+});
 const postValidationSchema = z.object({
   body: z.object({
     category: z.string({ required_error: "Category Name is Reqired" }),
@@ -20,7 +22,7 @@ const postValidationSchema = z.object({
     description: z.string({ required_error: "Description is Reqired" }),
     image: z.string({ required_error: "Image is Reqired" }),
     comments: z.array(comentValidationSchema).optional(),
-    vote: z.number().optional(),
+    vote: z.array(voteValidationSchema).optional(),
     premium: z.boolean().optional(),
   }),
 });

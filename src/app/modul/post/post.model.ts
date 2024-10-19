@@ -10,24 +10,38 @@ const postSchema = new Schema<TPost>(
     image: { type: String, required: true },
     comments: [
       {
-        coment: { type: String },
-        name: { type: String },
-        email: { type: String },
+        comment: { type: String },
+        userId: { type: Schema.Types.ObjectId, ref: "User" },
         replay: [
           {
-            coment: { type: String },
-            name: { type: String },
-            email: { type: String },
+            comment: { type: String },
+            userId: { type: Schema.Types.ObjectId, ref: "User" },
           },
         ],
       },
     ],
-    vote: { type: Number, default: null },
+    vote: [
+      {
+        value: { type: String },
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+      },
+    ],
+
     premium: { type: Boolean, default: false },
   },
   {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true,
   }
 );
+
+postSchema.virtual("totalUpVotes").get(function () {
+  return this.vote.filter((item) => item.value === "1");
+});
+
+postSchema.virtual("totalDownVotes").get(function () {
+  return this.vote.filter((item) => item.value === "2");
+});
 
 export const Post = model("Post", postSchema);

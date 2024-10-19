@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get("/", UserControllers.getAllUser);
 
+router.get("/profile", auth(USER_ROLE.user), UserControllers.getloginUser);
+
 router.delete("/:id", auth(USER_ROLE.admin), UserControllers.deleteUser);
 
 router.put("/:id", auth(USER_ROLE.admin), UserControllers.updateUser);

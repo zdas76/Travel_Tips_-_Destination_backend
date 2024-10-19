@@ -1,15 +1,13 @@
 import { Schema } from "mongoose";
 
-interface IReplay {
-  coment: string;
-  name: string;
-  email: string;
+export interface IReplay {
+  comment: string;
+  userId: Schema.Types.ObjectId;
 }
 
-interface IComment {
-  coment: string;
-  name: string;
-  email: string;
+export interface IComment {
+  comment: string;
+  userId: Schema.Types.ObjectId;
   replay?: IReplay[];
 }
 
@@ -20,7 +18,13 @@ export interface TPost extends Document {
   description: string;
   image: string;
   comments?: IComment[];
-  vote?: number;
+  vote: [
+    {
+      value: string;
+      user: Schema.Types.ObjectId;
+    }
+  ];
+
   premium: boolean;
   createdAt?: Date;
   updatedAt?: Date;

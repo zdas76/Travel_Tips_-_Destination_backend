@@ -11,7 +11,11 @@ const deleteUserFromDB = async (id: string) => {
   return result;
 };
 
-const getOneUserFromDB = () => {};
+const getLoginUserFromDB = async (id: string) => {
+  const result = await User.findById(id);
+
+  return result;
+};
 
 const updateUsertoDB = async (id: string, payLoad: { role: string }) => {
   let newRole;
@@ -31,7 +35,7 @@ const updateUsertoDB = async (id: string, payLoad: { role: string }) => {
 
 export const UserService = {
   getAllUserFromBD,
-  getOneUserFromDB,
+  getLoginUserFromDB,
   updateUsertoDB,
   deleteUserFromDB,
 };

@@ -26,7 +26,59 @@ const getAllPost = catchAsync(async (req, res) => {
   });
 });
 
+const getLoginUserAllPost = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  const result = await PostService.getAllPostByLodinUserFormDB(userId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Pose get successfully",
+    data: result,
+  });
+});
+
+const addToComment = catchAsync(async (req, res) => {
+
+  const result = await PostService.addComment(req.params.postId, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comments Added successfully",
+    data: result,
+  });
+});
+
+const updateToComment = catchAsync(async (req, res) => {
+
+  const result = await PostService.updateComment(req.params.postId, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comments Added successfully",
+    data: result,
+  });
+});
+
+const getPostById = catchAsync(async (req, res) => {
+  const result = await PostService.getPostByIDFormDB(req.params.id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Post updated successfully",
+    data: result,
+  });
+});
+
 export const PostController = {
   createPost,
   getAllPost,
+  getLoginUserAllPost,
+  addToComment,
+  getPostById,
+  updateToComment
 };
