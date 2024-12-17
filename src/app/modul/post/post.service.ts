@@ -40,7 +40,7 @@ const getPostByIDFormDB = async (id: string) => {
 };
 
 const addComment = async (id: string, payload: IComment) => {
-  // console.log("service", id );
+  
   const result = await Post.findByIdAndUpdate(
     id,
     { $addToSet: { comments: payload } },
@@ -59,11 +59,45 @@ const updateComment = async (id: string, payload: any) => {
   return result;
 };
 
+const deleteComment = async (postId: string, commentId: any) => {
+  console.log(postId, commentId)
+  
+  const result = await Post.findOneAndDelete(
+    {_id: postId, "comments._id":  commentId}, 
+  );
+  return result;
+};
+
+
+const addVote = async (id: string, payload: IComment) => {
+  
+  const result = await Post.findByIdAndUpdate(
+    id,
+    { $addToSet: { vote: payload } },
+    { new: true }
+  );
+  return result;
+};
+
+const updateVote = async (id: string, payload: any) => {
+  
+  const result = await Post.findOneAndUpdate(
+    {_id: id, "vote._id":  payload.voteId}, 
+    { $set: { "vote.$.value": payload.value} },
+    { new: true }
+  );
+  return result;
+};
+
+
 export const PostService = {
   creatPostToDB,
   getAllPostFormDB,
   getAllPostByLodinUserFormDB,
   getPostByIDFormDB,
   addComment,
-  updateComment
+  updateComment,
+  deleteComment,
+  addVote,
+  updateVote
 };

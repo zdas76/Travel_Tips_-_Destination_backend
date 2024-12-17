@@ -39,6 +39,18 @@ const getLoginUserAllPost = catchAsync(async (req, res) => {
   });
 });
 
+const getPostById = catchAsync(async (req, res) => {
+  const result = await PostService.getPostByIDFormDB(req.params.id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Post updated successfully",
+    data: result,
+  });
+});
+
+
 const addToComment = catchAsync(async (req, res) => {
 
   const result = await PostService.addComment(req.params.postId, req.body);
@@ -63,16 +75,44 @@ const updateToComment = catchAsync(async (req, res) => {
   });
 });
 
-const getPostById = catchAsync(async (req, res) => {
-  const result = await PostService.getPostByIDFormDB(req.params.id);
+
+const deleteToComment = catchAsync(async (req, res) => {
+  console.log(req.params, req.query, req.body)
+
+  const result = await PostService.deleteComment(req.body.postId, req.body.commentId);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: "Post updated successfully",
+    message: "Comments deleted successfully",
     data: result,
   });
 });
+
+const addToVote = catchAsync(async (req, res) => {
+
+  const result = await PostService.addComment(req.params.postId, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comments Added successfully",
+    data: result,
+  });
+});
+
+const updateToVote = catchAsync(async (req, res) => {
+
+  const result = await PostService.updateComment(req.params.postId, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comments Added successfully",
+    data: result,
+  });
+});
+
 
 export const PostController = {
   createPost,
@@ -80,5 +120,8 @@ export const PostController = {
   getLoginUserAllPost,
   addToComment,
   getPostById,
-  updateToComment
+  updateToComment,
+  deleteToComment,
+  addToVote,
+  updateToVote
 };

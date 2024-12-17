@@ -21,6 +21,12 @@ routes.get("/:id", PostController.getPostById);
 
 routes.put("/comment/:postId", PostController.addToComment);
 
+routes.post("/comment-delete", PostController.deleteToComment);
+
 routes.put("/comment-update/:postId", PostController.updateToComment);
+
+routes.put("/vote/:postId", PostController.addToVote);
+
+routes.put("/vote-update/:postId", PostController.updateToVote);
 
 export const PostRoute = routes;

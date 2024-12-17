@@ -22,11 +22,10 @@ const postSchema = new Schema<TPost>(
     ],
     vote: [
       {
-        value: { type: String },
+        value: { type: String, enum : ['0', '1', '2'], default:'0' },
         user: { type: Schema.Types.ObjectId, ref: "User" },
       },
     ],
-
     premium: { type: Boolean, default: false },
   },
   {
